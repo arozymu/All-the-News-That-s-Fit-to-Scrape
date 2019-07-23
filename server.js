@@ -27,16 +27,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // Use express.static to serve the public folder as a static directory
 app.use(express.static("public"));
 
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/newsScraper";
+
 
 mongoose.connect("mongodb://localhost/unit18Populater", { useNewUrlParser: true });
 
-// Set mongoose to leverage built in JavaScript ES6 Promises
-// Connect to the Mongo DB
-// mongoose.Promise = Promise;
-// mongoose.connect(MONGODB_URI, {
-//   useMongoClient: true
-// });
+
 
 // Routes
 
@@ -52,7 +47,7 @@ app.get("/saved", function(req, res) {
 // A GET route for scraping the echojs website
 app.get("/scrape", function(req, res) {
   // First, we grab the body of the html with request
-  axios.get("https://www.premierleague.com/").then(function(response) {
+  axios.get("https://www.premierleague.com/news").then(function(response) {
     // Then, we load that into cheerio and save it to $ for a shorthand selector
     var $ = cheerio.load(response.data);
 
